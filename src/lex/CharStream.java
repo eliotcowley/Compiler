@@ -143,6 +143,7 @@ public class CharStream
          try
          {
             reader.close();
+            System.out.println("File closed");
          }
          catch (IOException ex)
          {

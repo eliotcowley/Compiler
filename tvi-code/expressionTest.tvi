@@ -1,0 +1,27 @@
+CODE 
+1: call main, 0 
+2: exit 
+3: PROCBEGIN main 
+4: alloc 11 
+5: move 3, _3 
+6: move _3, _1 
+7: move 4, _5 
+8: mul _5, _1, _4 
+9: move _4, _0 
+10: add _0, _1, _6 
+11: move 2, _8 
+12: ltof _8, _7 
+13: ltof _6, _9 
+14: fdiv _7, _9, _10 
+15: move _9, _2 
+16: print "a = " 
+17: outp _1 
+18: newl 
+19: print "b = " 
+20: outp _0 
+21: newl 
+22: print "c = " 
+23: foutp _2 
+24: newl 
+25: free 11 
+26: PROCEND 

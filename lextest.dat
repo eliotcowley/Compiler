@@ -1,13 +1,14 @@
 {$%^&*(*}
 
 
+
 proGram 
 begin
 end
    var Function procedure .. RESULT integer real array of if then  else while
-do not OR < > <= >= <> +identifier + + -
+do not OR < > <= >= <> +identifier + - 
 
-			{}result end..1.1e.1.1
+          {}result end..1.1e.1.1
 
 98756e2531
 
@@ -18,7 +19,7 @@ do not OR < > <= >= <> +identifier + + -
 */div mod and := : : =+123
 ([]..+-46
 aname anothername 
-{nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn}
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
 123.456
 .123456
      en{comment}d
@@ -27,9 +28,8 @@ aname anothername
   {
 
   }
-{ { test  } }
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+{ { test } } 
+111111111111111111111111111111111112222222222222222222222222222222233333333333333333333333333333333333333
 !@#123E.4abc$
-1*123/3-10
 
 

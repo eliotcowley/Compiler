@@ -8,10 +8,19 @@ package lex;
  *
  * @author Eliot
  */
-interface GrammarSymbol {
+public interface GrammarSymbol {
     /** Return index in TokenType enum of GrammarSymbol. */
     public int getIndex ();
     
     /** Return true if GrammarSymbol is a Token. */
     public boolean isToken ();
+    
+    /** Returns true if GrammarSymbol is a NonTerminal. */
+    public boolean isNonTerminal();
+    
+    /**
+     * Returns true if GrammarSymbol is a SemanticAction.
+     * @return boolean--true if SemanticAction, false otherwise.
+     */
+    public boolean isAction();
 }

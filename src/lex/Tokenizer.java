@@ -56,13 +56,17 @@ public class Tokenizer {
          plus, or minus */
         while (!(Character.isWhitespace(ch)) && (ch != CharStream.EOF) && (ch != CharStream.ENDMARKER)
                 && (ch != CharStream.PLUS) && (ch != CharStream.MINUS) && (ch != '*')
-                && (ch != '/') && (ch != '(') && (ch != ')') && (ch != '[') && (ch != ']')) {
+                && (ch != '/') && (ch != '(') && (ch != ')') && (ch != '[') && (ch != ']')
+                && (ch != ',') && (ch != ';') && (ch != ':') && (ch != '=') && (ch != '<')
+                && (ch != '>')) {
             sb.append(ch);
             if (sb.length() > MAX) {
                 throw LexicalError.IdentifierTooLong(charStream.tempLineNumber);
             }
             if ((next == CharStream.ENDMARKER) || (next == CharStream.PLUS) || (next == CharStream.MINUS) 
-                    || (next == '*') || (next == '/')) {
+                    || (next == '*') || (next == '/') || (next == ',') || (next == '(')
+                    || (next == ')') || (next == ';') || (next == '[') || (next == ']') 
+                    || (next == ':') || (next == '=') || (next == '<') || (next == '>')) {
                 break;
             }
             /* to account for integers that end with 'e', so we count 'e' as a 
@@ -86,7 +90,7 @@ public class Tokenizer {
                         sb.append(CharStream.ENDMARKER);
                         updateChars();
                         while ((Character.isDigit(ch)) || 
-                                ((ch == 'e') && (Character.isDigit(next)))) {
+                                ((Character.toLowerCase(ch) == 'e') && (Character.isDigit(next)))) {
                             sb.append(ch);
                             updateChars();
                         }
@@ -149,6 +153,59 @@ public class Tokenizer {
                 sb.append(ch);
             }
         }
+        /* catch commas */
+        else if (ch == ',') {
+            if (sb.length() == 0) {
+                sb.append(ch);
+            }
+        }
+        /* catch semicolons */
+        else if (ch == ';') {
+            if (sb.length() == 0) {
+                sb.append(ch);
+            }
+        }
+        /* catch colons and assign ops */
+        else if (ch == ':') {
+            if (sb.length() == 0) {
+                if (next == '=') {
+                    sb.append(ch);
+                    updateChars();
+                    sb.append(ch);
+                }
+                else {
+                    sb.append(ch);
+                }
+            }
+        }
+        /* catch equals signs */
+        else if (ch == '=') {
+            if (sb.length() == 0) {
+                sb.append(ch);
+            }
+        }
+        /* catch less than or equal to signs */
+        else if (ch == '<') {
+            if (next == '=') {
+                sb.append(ch);
+                updateChars();
+                sb.append(ch);
+            }
+            else if (sb.length() == 0) {
+                sb.append(ch);
+            }
+        }
+        /* catch greater than or equal to signs */
+        else if (ch == '>') {
+            if (next == '=') {
+                sb.append(ch);
+                updateChars();
+                sb.append(ch);
+            }
+            else if (sb.length() == 0) {
+                sb.append(ch);
+            }
+        }
         /* catch floats - StringBuilder currently holding series of digits, next 
          * char is '.' */
         else if (Character.isDigit(ch)) {
@@ -157,7 +214,7 @@ public class Tokenizer {
                 updateChars();
                 sb.append(ch); // append '.'
                 updateChars(); // in series of digits after decimal point
-                while (Character.isDigit(next)) {
+                while ((Character.isDigit(next)) || (Character.toLowerCase(next) == 'e')) {
                     sb.append(ch); // append digit
                     updateChars();
                 }
@@ -226,6 +283,7 @@ public class Tokenizer {
                         || (previousType == TokenType.REALCONSTANT)) {
                     token.setType(TokenType.ADDOP);
                     token.setValue(OpValue.PLUS.getIndex());
+                    token.setOpType(OpValue.PLUS);
                 }
                 else {
                     token.setType(TokenType.UNARYPLUS);
@@ -237,6 +295,7 @@ public class Tokenizer {
                         || (previousType == TokenType.REALCONSTANT)) {
                     token.setType(TokenType.ADDOP);
                     token.setValue(OpValue.MINUS.getIndex());
+                    token.setOpType(OpValue.MINUS);
                 }
                 else {
                     token.setType(TokenType.UNARYMINUS);
@@ -245,50 +304,62 @@ public class Tokenizer {
             case "or":
                 token.setType(TokenType.ADDOP);
                 token.setValue(OpValue.OR.getIndex());
+                token.setOpType(OpValue.OR);
                 break;
             case "=":
                 token.setType(TokenType.RELOP);
                 token.setValue(OpValue.EQUAL.getIndex());
+                token.setOpType(OpValue.EQUAL);
                 break;
             case "<>":
                 token.setType(TokenType.RELOP);
                 token.setValue(OpValue.NOTEQUAL.getIndex());
+                token.setOpType(OpValue.NOTEQUAL);
                 break;
             case "<":
                 token.setType(TokenType.RELOP);
                 token.setValue(OpValue.LESSTHAN.getIndex());
+                token.setOpType(OpValue.LESSTHAN);
                 break;
             case ">":
                 token.setType(TokenType.RELOP);
                 token.setValue(OpValue.GREATERTHAN.getIndex());
+                token.setOpType(OpValue.LESSTHAN);
                 break;
             case "<=":
                 token.setType(TokenType.RELOP);
                 token.setValue(OpValue.LESSTHANOREQUAL.getIndex());
+                token.setOpType(OpValue.LESSTHANOREQUAL);
                 break;
             case ">=":
                 token.setType(TokenType.RELOP);
                 token.setValue(OpValue.GREATERTHANOREQUAL.getIndex());
+                token.setOpType(OpValue.GREATERTHANOREQUAL);
                 break;
             case "*":
                 token.setType(TokenType.MULOP);
                 token.setValue(OpValue.MULTIPLICATION.getIndex());
+                token.setOpType(OpValue.MULTIPLICATION);
                 break;
             case "/":
                 token.setType(TokenType.MULOP);
                 token.setValue(OpValue.DIVISION.getIndex());
+                token.setOpType(OpValue.DIVISION);
                 break;
             case "div":
                 token.setType(TokenType.MULOP);
                 token.setValue(OpValue.DIV.getIndex());
+                token.setOpType(OpValue.DIV);
                 break;
             case "mod":
                 token.setType(TokenType.MULOP);
                 token.setValue(OpValue.MOD.getIndex());
+                token.setOpType(OpValue.MOD);
                 break;
             case "and":
                 token.setType(TokenType.MULOP);
                 token.setValue(OpValue.AND.getIndex());
+                token.setOpType(OpValue.AND);
                 break;
             case ":=":
                 token.setType(TokenType.ASSIGNOP);
@@ -330,13 +401,18 @@ public class Tokenizer {
                     token.setType(TokenType.ENDOFFILE);
                 }
                 /* floating point constant */
-                else if (StringUtils.containsOnly(tokenString, "0123456789.e")) {
-                    token.setType(TokenType.REALCONSTANT);
+                else if (StringUtils.containsOnly(tokenStringLower, "0123456789.e")) {
+                    if ("e".equals(tokenStringLower)) {
+                        token.setType(TokenType.IDENTIFIER);
+                    }
+                    else {
+                        token.setType(TokenType.REALCONSTANT);
+                    }
                 }
                 else {
                     if (Character.isDigit(tokenString.charAt(0))) {
-                        System.out.println(tokenString);
-                        throw LexicalError.IdentifierStartsWithNumber(charStream.tempLineNumber);
+                        //System.out.println(tokenString);
+                        throw LexicalError.IdentifierStartsWithNumber(charStream.tempLineNumber, tokenString);
                     }
                     else {
                         token.setType(TokenType.IDENTIFIER);
@@ -371,6 +447,7 @@ public class Tokenizer {
            catch (LexicalError ex)
            {
               System.out.println(ex.string);
+              charStream.close();
            }
         }
         return ch;
@@ -387,6 +464,7 @@ public class Tokenizer {
         }
         catch(LexicalError ex) {
             System.out.println(ex.string);
+            charStream.close();
         }
     }
     

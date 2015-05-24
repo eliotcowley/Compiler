@@ -4,6 +4,11 @@
  */
 package lex;
 
+import static lex.OpValue.GREATERTHAN;
+import static lex.OpValue.GREATERTHANOREQUAL;
+import static lex.OpValue.LESSTHAN;
+import static lex.OpValue.LESSTHANOREQUAL;
+
 /**
  *
  * @author Eliot
@@ -15,6 +20,7 @@ public class Token {
     
     /** Type of token. */
     private TokenType tokenType;
+    private OpValue opType;
     
     /** String contained in token. */
     public String lexeme;
@@ -49,8 +55,12 @@ public class Token {
     }
     
     /** Return operation type of token. */
-    public String getOpType() {
-        return this.lexeme;
+    public OpValue getOpType() {
+        return this.opType;
+    }
+    
+    public void setOpType(OpValue opValue) {
+        this.opType = opValue;
     }
     
     /** Set type of token.
@@ -70,6 +80,56 @@ public class Token {
     /** Return integer value of operation (addops, mulops, and relops). */
     public int getOpValue() {
         return this.value;
+    }
+    
+    public String getTVICode() {
+        switch (opType) {
+            case LESSTHAN: {
+                return "blt";
+            }
+            case LESSTHANOREQUAL: {
+                return "ble";
+            }
+            case GREATERTHAN: {
+                return "bgt";
+            }
+            case GREATERTHANOREQUAL: {
+                return "bge";
+            }
+            case EQUAL: {
+                return "beq";
+            }
+            case NOTEQUAL: {
+                return "bne";
+            }
+            case PLUS: {
+                return "add";
+            }
+            case MINUS: {
+                return "sub";
+            }
+            case MULTIPLICATION: {
+                return "mul";
+            } 
+            case DIVISION: {
+                return "/";
+            }
+            case DIV: {
+                return "div";
+            }
+            case MOD: {
+                return "mod";
+            }
+            case OR: {
+                return "or";
+            }
+            case AND: {
+                return "and";
+            }
+            default: {
+                return "null";
+            }
+        }
     }
     
 }

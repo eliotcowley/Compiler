@@ -4,11 +4,12 @@
  */
 package errors;
 
+import lex.CharStream;
 import lex.Tokenizer;
 
 /**
  *
- * @author Eliot
+ * @author Eliot Cowley
  */
 
 /** Outputs errors in lexical analysis.
@@ -21,6 +22,7 @@ public class LexicalError extends CompilerError {
      * @param string Error message to display.
      */
     public LexicalError(String string) {
+        //super(string);
         this.string = string;
         //System.out.println(string);
     }
@@ -60,8 +62,8 @@ public class LexicalError extends CompilerError {
     /** Tokenizer found an identifier that starts with a number.
      * @param lineNumber Line number at which identifier was found.
      */
-    public static LexicalError IdentifierStartsWithNumber(int lineNumber) {
-        return new LexicalError("ERROR! Found an identifier that starts with a "
+    public static LexicalError IdentifierStartsWithNumber(int lineNumber, String token) {
+        return new LexicalError("ERROR! Found an identifier " + token + " that starts with a "
                 + "number on line " + lineNumber);
     }
     

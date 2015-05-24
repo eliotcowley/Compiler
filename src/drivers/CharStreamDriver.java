@@ -45,6 +45,7 @@ public class CharStreamDriver
          catch (LexicalError ex)
          {
             System.err.println(ex.string);
+            stream.close();
          }
       }
       return ch;

@@ -1,0 +1,147 @@
+CODE 
+1: call main, 0 
+2: exit 
+3: PROCBEGIN %0 
+4: alloc 8 
+5: move 0, %3 
+6: ble ^%0, %3, 8 
+7: goto 10 
+8: move ^%1, %11 
+9: goto _ 
+10: move ^%1, %2 
+11: bge %2, ^%0, 13 
+12: goto 16 
+13: sub %2, ^%0, %4 
+14: move %4, %2 
+15: goto 11 
+16: param ^%0 
+17: param %2 
+18: call %0, 2 
+19: move %11, %7 
+20: move %7, %11 
+21: free 8 
+22: PROCEND 
+23: PROCBEGIN %0 
+24: alloc 12 
+25: move 1608, %3 
+26: ltof %3, %2 
+27: fsub ^%1, %2, %4 
+28: ltof ^%0, %5 
+29: beq %5, %4, 34 
+30: goto 31 
+31: ltof ^%0, %6 
+32: beq ^%1, %6, _ 
+33: goto 34 
+34: sub %1, %0, %7 
+35: move 0, %8 
+36: beq %7, %8, 38 
+37: goto _ 
+38: sub %2, 1, %9 
+39: ftol ^%1, %10 
+40: div %10, ^%0, %11 
+41: stor %11, %9, %5 
+42: free 12 
+43: PROCEND 
+44: PROCBEGIN %0 
+45: alloc 4 
+46: move 1, %2 
+47: move %2, %0 
+48: move 7.43, %3 
+49: move %3, %1 
+50: move %0, %1 
+51: call %0, 2 
+52: free 4 
+53: PROCEND 
+54: PROCBEGIN main 
+55: alloc 40 
+56: move 1, _12 
+57: move _12, _2 
+58: move 5, _13 
+59: move _13, _1 
+60: move 5, _14 
+61: ble _2, _14, 63 
+62: goto 78 
+63: move 75, _15 
+64: ble _1, _15, 66 
+65: goto 78 
+66: sub _2, 1, _16 
+67: stor _1, _16, _5 
+68: sub _1, 1, _17 
+69: sub _2, 1, _18 
+70: load _5, _18, _19 
+71: move 20, _21 
+72: mul _21, _19, _20 
+73: stor _20, _17, _5 
+74: move 1, _23 
+75: add _2, _23, _22 
+76: move _22, _2 
+77: goto 60 
+78: inp _1 
+79: inp _0 
+80: blt _1, _0, 82 
+81: goto 90 
+82: param _1 
+83: param _0 
+84: call _0, 0 
+85: move _11, _24 
+86: print "$$TEMP = " 
+87: outp _24 
+88: newl 
+89: goto _ 
+90: param _4 
+91: param _3 
+92: call _0, 0 
+93: move _11, _25 
+94: print "$$TEMP = " 
+95: outp _25 
+96: newl 
+97: sub _1, 1, _26 
+98: move 6758, _27 
+99: stor _27, _26, _5 
+100: move 23e10, _28 
+101: move _28, _10 
+102: sub _1, 1, _29 
+103: load _5, _29, _30 
+104: print "$$TEMP = " 
+105: outp _30 
+106: newl 
+107: param _1 
+108: param _0 
+109: call _0, 2 
+110: move _11, _31 
+111: call _0, 2 
+112: sub _1, 1, _32 
+113: load _5, _32, _33 
+114: call _0, 2 
+115: call _0, 0 
+116: move 1, _34 
+117: move _34, _2 
+118: move 5, _35 
+119: ble _2, _35, 121 
+120: goto 130 
+121: sub _2, 1, _36 
+122: load _5, _36, _37 
+123: print "$$TEMP = " 
+124: outp _37 
+125: newl 
+126: move 1, _39 
+127: add _2, _39, _38 
+128: move _38, _2 
+129: goto 118 
+130: print "h = " 
+131: outp _4 
+132: newl 
+133: print "i = " 
+134: outp _2 
+135: newl 
+136: print "x = " 
+137: outp _1 
+138: newl 
+139: print "y = " 
+140: outp _0 
+141: newl 
+142: print "z = " 
+143: outp _3 
+144: newl 
+145: free 40 
+146: PROCEND 
